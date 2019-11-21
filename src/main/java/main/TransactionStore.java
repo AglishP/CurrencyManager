@@ -7,14 +7,13 @@ import java.util.Objects;
 
 public class TransactionStore implements Serializable {
 
-    public TransactionStore() {
+    private TransactionStore() {
     }
 
     private List<Transaction> transactions = new ArrayList<>();
 
     public void addTransaction(Transaction newItem) {
         transactions.add(newItem);
-        Output.showMessage("Add new transaction. Total transaction now is " + transactions.size());
     }
 
     public List<Transaction> getTransactions() {
