@@ -26,6 +26,15 @@ public class Utils {
         }
     }
 
+    public static AddTransactionWayType convertToTransactionWay(String str) {
+        if (str.equals("from")) {
+            return AddTransactionWayType.FROM;
+        } else if (str.equals("to")) {
+            return AddTransactionWayType.TO;
+        }
+        return AddTransactionWayType.NONE;
+    }
+
     public static WalletType convertToWallet(String str) {
         if (str.equals(WalletType.CASH.getName())) {
             return WalletType.CASH;

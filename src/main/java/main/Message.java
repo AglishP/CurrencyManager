@@ -19,4 +19,8 @@ public class Message {
     public static final String EXIT = "EXIT APP";
 
     public static final String SELECT_WALLET_TYPE = "Select wallet";
+
+    public static final String FIRST_SHORT_ADD_API = "FROM currencyFrom amountFrom currencyTo rate wallet";
+
+    public static final String SECOND_SHORT_ADD_API = "TO currenceFrom currencyTo amountTo rate wallet";
 }

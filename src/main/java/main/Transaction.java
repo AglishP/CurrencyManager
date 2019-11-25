@@ -41,8 +41,25 @@ public class Transaction implements Serializable {
         this.walletType = walletType;
     }
 
-    public boolean ckeck() {
+    public boolean check() {
+
+        if (walletType == null ||
+                currencyFrom == null || currencyFrom == CurrencyType.NONE ||
+                currencyTo == null || currencyTo == CurrencyType.NONE ||
+                rate == 0d || amountFrom == 0d || amountTo == 0d) {
+            return false;
+        }
         return true;
+    }
+
+    private void correctNumbers() {
+        if (rate < 0.1d && amountTo >= 0d && amountFrom >= 0d) {
+            rate = Utils.roundMe(amountFrom/amountTo);
+        } else if (amountTo <= 0d && amountFrom >= 0d && rate >= 0d) {
+            amountTo = Utils.roundMe(amountFrom / rate);
+        } else if (amountFrom <= 0d && amountFrom >= 0d && rate >= 0d) {
+            amountFrom = Utils.roundMe(amountTo * rate);
+        }
     }
 
     public String toString() {
@@ -76,6 +93,7 @@ public class Transaction implements Serializable {
 
     public void setAmountFrom(double amountFrom) {
         this.amountFrom = amountFrom;
+        correctNumbers();
     }
 
     public double getAmountTo() {
@@ -84,11 +102,12 @@ public class Transaction implements Serializable {
 
     public void setAmountTo(double value) {
         amountTo = value;
-        if (rate < 0.1) {
-            rate = Utils.roundMe(amountFrom/amountTo);
-        } else {
-            amountFrom = Utils.roundMe(amountTo * rate);
-        }
+//        if (rate < 0.1) {
+//            rate = Utils.roundMe(amountFrom/amountTo);
+//        } else {
+//            amountFrom = Utils.roundMe(amountTo * rate);
+//        }
+        correctNumbers();
     }
 
     public double getRate() {
@@ -97,7 +116,8 @@ public class Transaction implements Serializable {
 
     public void setRate(double rate) {
         this.rate = rate;
-        this.amountTo = Utils.roundMe(amountFrom/rate);
+//        this.amountTo = Utils.roundMe(amountFrom/rate);
+        correctNumbers();
     }
 
     public CurrencyType getCurrencyFrom() {

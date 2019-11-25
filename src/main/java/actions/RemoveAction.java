@@ -14,31 +14,31 @@ public class RemoveAction extends AbstractAction {
         TransactionStore store = CStore.getInstance();
         List<Transaction> list = store.getTransactions();
 
-
         WalletType wallet = UserInput.getWalletType();
         list = TransactionSelectors.walletSelector(list, wallet);
         Output.printList(list);
 
-        CurrencyType currencyTypeFrom = UserInput.getCurrencyFrom();
+        CurrencyType currencyTypeTo = UserInput.getCurrencyTo();
 
         boolean stillWork = true;
         while (stillWork) {
-            List<Transaction> rates = getRates(list, currencyTypeFrom);
+            List<Transaction> rates = getRates(list, currencyTypeTo);
 
             OptionalInt selectedId = selectRate(rates);
-            if (selectedId.isPresent()) {
+            if (selectedId.isPresent()
+                    && selectedId.getAsInt() - 1 <= store.getTransactions().size()) {
                 int transactionID = selectedId.getAsInt() - 1;
                 Transaction transaction = store.getTransactions().get(transactionID);
-                double amount = UserInput.getAmountFrom();
+                double amount = UserInput.getAmountTo();
                 double currentAmount = transaction.getAmountTo();
-                if (amount < currentAmount) {
+                if (Math.abs(amount - currentAmount) > 0.1) {
                     double newAmount = Utils.roundMe(currentAmount - amount);
                     transaction.setAmountTo(newAmount);
                     store.removeTransaction(transactionID);
                     store.addTransaction(transaction);
                     Output.showMessage(transaction.toString());
                     stillWork = false;
-                } else if (amount == currentAmount) {
+                } else if (Math.abs(amount - currentAmount) <= 0.1) {
                     store.removeTransaction(transaction);
                     stillWork = false;
                 } else {

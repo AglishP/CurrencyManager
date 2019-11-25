@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class TransactionStore implements Serializable {
 
-    private TransactionStore() {
+    public TransactionStore() {
     }
 
     private List<Transaction> transactions = new ArrayList<>();

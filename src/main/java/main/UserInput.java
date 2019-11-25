@@ -1,8 +1,5 @@
 package main;
 
-import main.CurrencyType;
-import main.Quastion;
-
 import java.util.*;
 
 public class UserInput {
@@ -46,7 +43,7 @@ public class UserInput {
     }
 
     public static double getAmountFrom() {
-        return Integer.parseInt(askQuastion(Quastion.AMOUNT_FROM));
+        return Double.parseDouble(askQuastion(Quastion.AMOUNT_FROM));
     }
 
     public static double getAmountTo() {

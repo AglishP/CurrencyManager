@@ -19,7 +19,7 @@ public class AddNewTransactionAction extends AbstractAction {
       }
       transaction.setWalletType(UserInput.getWalletType());
 
-      if (transaction.ckeck()) {
+      if (transaction.check()) {
           CStore.getInstance().addTransaction(transaction);
           Output.showMessage(transaction.toString());
       }
