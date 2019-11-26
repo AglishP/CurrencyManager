@@ -6,19 +6,16 @@ public class UserInput {
 
     private static String askQuastion(String quastion) {
         Scanner inputStream = new Scanner(System.in);
-        System.out.println(quastion);
+        if (!quastion.equals("")) {
+            System.out.println(quastion);
+        }
         return inputStream.nextLine();
-//        if (inputCommand.length > 0) {
-//            return inputCommand[0];
-//        } else {
-//            return "";
-//        }
     }
 
     public static WalletType getWalletType() {
         WalletType wallet = null;
         while (wallet == null) {
-            String ans = askQuastion(Quastion.WALLET_TYPE);
+            String ans = askQuastion(Quastion.EMPTY_STRING);
             wallet = Utils.convertToWallet(ans);
         }
         return wallet;
@@ -88,7 +85,9 @@ public class UserInput {
 
     public static OptionalInt selectRates(List<Transaction> list) {
         System.out.println("Rates:");
-        list.forEach(t -> System.out.println(t.getRate()));
+        list.stream()
+                .map(t -> String.valueOf(t.getRate()))
+                .forEach(Output::showMessage);
         int id = 0;
         while (id <= 0) {
             try {

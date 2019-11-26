@@ -19,4 +19,6 @@ public class Quastion {
     public static final String INPUT_NUMBER = "Input number";
 
     public static final String WALLET_TYPE = "Cash or debit";
+
+    public static final String EMPTY_STRING = "";
 }

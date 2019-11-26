@@ -23,4 +23,6 @@ public class Message {
     public static final String FIRST_SHORT_ADD_API = "FROM currencyFrom amountFrom currencyTo rate wallet";
 
     public static final String SECOND_SHORT_ADD_API = "TO currenceFrom currencyTo amountTo rate wallet";
+
+    public static final String STARS = "**************";
 }

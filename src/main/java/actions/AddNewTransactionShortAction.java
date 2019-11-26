@@ -37,11 +37,6 @@ public class AddNewTransactionShortAction extends AbstractAction {
         }
         transaction.setRate(Double.parseDouble(args.get(4)));
 
-//        if (Boolean.parseBoolean(args.get(3))) {
-//            transaction.setRate(Double.parseDouble(args.get(4)));
-//        } else {
-//            transaction.setAmountTo(Double.parseDouble(args.get(4)));
-//        }
         transaction.setWalletType(Utils.convertToWallet(args.get(5)));
         if (transaction.check()) {
             CStore.getInstance().addTransaction(transaction);
