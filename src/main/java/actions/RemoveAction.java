@@ -16,8 +16,7 @@ public class RemoveAction extends AbstractAction {
         List<Transaction> list = store.getTransactions();
 
         // select wallet type
-        Arrays.asList(WalletType.values())
-                .stream()
+        Arrays.stream(WalletType.values())
                 .map(WalletType::getName)
                 .forEach(Output::showMessage);
         WalletType wallet = UserInput.getWalletType();

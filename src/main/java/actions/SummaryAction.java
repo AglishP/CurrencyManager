@@ -11,14 +11,37 @@ public class SummaryAction extends AbstractAction {
         List<Transaction> list = store.getTransactions();
 
         // total rub
-        Output.showMessage(String.format("Total rub %s", getTotalAmount(list, CurrencyType.RUB)));
+        Output.showMessage(String.format("Total rub %s", getTotalAmountFrom(list)));
+        Output.showMessage(String.format("Total eur %s", getTotalAmountTo(list, CurrencyType.EUR)));
+        Output.showMessage(String.format("Total usd %s", getTotalAmountTo(list, CurrencyType.USD)));
+        Output.showMessage(Message.STARS);
+        Output.showMessage(String.format("Total eur %s in debit", getAmountToByWallet(list, CurrencyType.EUR, WalletType.DEBIT_CARD)));
+        Output.showMessage(String.format("Total usd %s in debit", getAmountToByWallet(list, CurrencyType.USD, WalletType.DEBIT_CARD)));
+        Output.showMessage(Message.STARS);
+        Output.showMessage(String.format("Total eur %s in cash", getAmountToByWallet(list, CurrencyType.EUR, WalletType.CASH)));
+        Output.showMessage(String.format("Total usd %s in cash", getAmountToByWallet(list, CurrencyType.USD, WalletType.CASH)));
 
     }
 
-    public double getTotalAmount(List<Transaction> list, CurrencyType type) {
+    private double getAmountToByWallet(List<Transaction> list, CurrencyType type, WalletType wallet) {
         return list.stream()
-                .filter(t -> t.getCurrencyFrom().equals(type))
-                .mapToDouble(t -> t.getAmountFrom())
+                .filter(t -> t.getWalletType().equals(wallet))
+                .filter(t -> t.getCurrencyTo().equals(type))
+                .mapToDouble(Transaction::getAmountFrom)
+                .sum();
+    }
+
+    private double getTotalAmountTo(List<Transaction> list, CurrencyType type) {
+        return list.stream()
+                .filter(t -> t.getCurrencyTo().equals(type))
+                .mapToDouble(Transaction::getAmountTo)
+                .sum();
+    }
+
+    private double getTotalAmountFrom(List<Transaction> list) {
+        return list.stream()
+                .filter(t -> t.getCurrencyFrom().equals(CurrencyType.RUB))
+                .mapToDouble(Transaction::getAmountFrom)
                 .sum();
     }
 }
