@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 
 public class RemoveAction extends AbstractAction {
 
+    private double amountDifferent;
+
     @Override
     public void run() {
 
@@ -37,17 +39,17 @@ public class RemoveAction extends AbstractAction {
         if (selectedRateId.isPresent()
                 && selectedRateId.getAsInt() - 1 <= store.getTransactions().size()) {
             int transactionID = selectedRateId.getAsInt() - 1;
-            Transaction transaction = store.getTransactions().get(transactionID);
+            Transaction transaction = listWithCurrencyTo.get(transactionID);
             Output.showMessage(transaction.toString());
-            double amount = UserInput.getAmountTo();
-            double currentAmount = transaction.getAmountTo();
-            if (Math.abs(amount - currentAmount) > 0.1) {
-                double newAmount = Utils.roundMe(currentAmount - amount);
-                transaction.setAmountTo(newAmount);
-                store.removeTransaction(transactionID);
+            double newAmount = UserInput.getAmountTo();
+            double wasAmount = transaction.getAmountTo();
+            double amountDifferent = Utils.roundMe(wasAmount - newAmount);//Math.abs(newAmount - wasAmount);
+            if (amountDifferent > 0.1) {
+                store.removeTransaction(transaction);
+                transaction.setAmountTo(amountDifferent);
                 store.addTransaction(transaction);
                 Output.showMessage(transaction.toString());
-            } else if (Math.abs(amount - currentAmount) <= 0.1) {
+            } else if (amountDifferent <= 0.1 && amountDifferent >= 0) {
                 store.removeTransaction(transaction);
             } else {
                 Output.showMessage(Message.INPUT_BIGGER_THAN_AMOUNT);

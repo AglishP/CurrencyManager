@@ -53,6 +53,33 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>sh.tak.appbundler</groupId>
+                <artifactId>appbundle-maven-plugin</artifactId>
+                <version>1.2.0</version>
+                <configuration>
+                    <mainClass>CurrencyManager</mainClass>
+                    <generateDiskImageFile>true</generateDiskImageFile>
+                    <bundleName>CurrencyManager</bundleName>
+                    <additionalResources>
+                        <fileSet>
+                            <directory>${project.basedir}</directory>
+                            <includes>
+                                <include>*.store</include>
+                            </includes>
+                        </fileSet>
+                    </additionalResources>
+<!--                    <iconFile>HelloWorld.icns</iconFile>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>bundle</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
