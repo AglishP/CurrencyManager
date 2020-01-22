@@ -25,4 +25,6 @@ public class Message {
     public static final String SECOND_SHORT_ADD_API = "TO currenceFrom currencyTo amountTo rate wallet";
 
     public static final String STARS = "**************";
+
+    public static final String WRONG_ARGUMENTS = "Wrong arguments. Transaction wasn't done.";
 }

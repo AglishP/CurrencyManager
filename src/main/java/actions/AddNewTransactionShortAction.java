@@ -21,7 +21,7 @@ public class AddNewTransactionShortAction extends AbstractAction {
             return;
         }
 
-        if (args.size() != 6) {
+        if (args.size() != 7) {
             Output.showMessage(Message.WRONG_ARGUMENTS_NUMBER);
             return;
         }
@@ -41,6 +41,8 @@ public class AddNewTransactionShortAction extends AbstractAction {
         if (transaction.check()) {
             CStore.getInstance().addTransaction(transaction);
             Output.showMessage(transaction.toString());
+        } else {
+            Output.showMessage(Message.WRONG_ARGUMENTS);
         }
     }
 }
