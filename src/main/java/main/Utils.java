@@ -15,6 +15,7 @@ public class Utils {
     }
 
     public static CurrencyType convertToCurrency(String str) {
+        str = str.toLowerCase();
         if (str.equals(CurrencyType.RUB.getName())) {
             return CurrencyType.RUB;
         } else if (str.equals(CurrencyType.USD.getName())) {
@@ -23,6 +24,22 @@ public class Utils {
             return CurrencyType.EUR;
         } else {
             return CurrencyType.NONE;
+        }
+    }
+
+    public static boolean convertToBoolean(String str) {
+        str = str.toLowerCase();
+        if (str.equals("y") || str.equals("yes")) {
+            return true;
+        } else if (str.equals("n") || str.equals("no")) {
+            return false;
+        }
+
+        try {
+            boolean res = Boolean.parseBoolean(str);
+            return res;
+        } catch (Exception e) {
+            throw new RuntimeException("can't parse to boolean this:" + str);
         }
     }
 

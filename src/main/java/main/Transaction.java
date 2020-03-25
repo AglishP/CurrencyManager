@@ -102,11 +102,6 @@ public class Transaction implements Serializable {
 
     public void setAmountTo(double value) {
         amountTo = value;
-//        if (rate < 0.1) {
-//            rate = Utils.roundMe(amountFrom/amountTo);
-//        } else {
-//            amountFrom = Utils.roundMe(amountTo * rate);
-//        }
         correctNumbers();
     }
 
@@ -116,7 +111,6 @@ public class Transaction implements Serializable {
 
     public void setRate(double rate) {
         this.rate = rate;
-//        this.amountTo = Utils.roundMe(amountFrom/rate);
         correctNumbers();
     }
 

@@ -35,9 +35,13 @@ public class AddNewTransactionShortAction extends AbstractAction {
             transaction.setCurrencyTo(Utils.convertToCurrency(args.get(2)));
             transaction.setAmountTo(Double.parseDouble(args.get(3)));
         }
-        transaction.setRate(Double.parseDouble(args.get(4)));
+        if (Utils.convertToBoolean(args.get(4))) {
+            transaction.setRate(Double.parseDouble(args.get(5)));
+        } else {
+            throw new UnsupportedOperationException("rate must be yes"); //ToDO
+        }
 
-        transaction.setWalletType(Utils.convertToWallet(args.get(5)));
+        transaction.setWalletType(Utils.convertToWallet(args.get(6)));
         if (transaction.check()) {
             CStore.getInstance().addTransaction(transaction);
             Output.showMessage(transaction.toString());
